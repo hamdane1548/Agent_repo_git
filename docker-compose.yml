@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  zenml_server:
+    container_name: zenMl_server
+    image: zenmldocker/zenml-server:0.96.1
+    ports:
+      - "8080:8080"
+    networks:
+      - agent_network
+    volumes:
+      - zenml_data_git_ai_agent:/zeml/.zenconfig
+  mongo_db_ai_agent:
+    container_name: mongo_db_ai_agent
+    image: mongo:latest
+    logging:
+      options:
+        max-size: 1g
+    ports:
+      - 27019:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=pipline
+    volumes:
+      - mongo_data_ai_agent:/data/db
+    networks:
+      - agent_network
+    restart: always
+volumes:
+  mongo_data_ai_agent:
+  zenml_data_git_ai_agent:
+networks:
+  agent_network:
+    driver: bridge
