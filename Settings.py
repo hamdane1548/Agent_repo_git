@@ -9,14 +9,16 @@ class Settings(BaseSettings):
 
     """Data Werhouse Mongo Db"""
     DATABASE_MONGO_HOST : str
-    DATABASE_MONOG_NAME : str
+    MONGO_DATABASE : str
+    MONGO_COLLECTION : str
+    ## github api key
     GITHUB_API_KEY : str
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
     @classmethod
     def load_settings(cls)->"Settings":
         try:
             logger.info("Loading Settings from the zenml store")
-            settings_secret = Client().get_secret("settings")
+            settings_secret = Client().get_secret("secrets")
             settings = Settings(**settings_secret.secret_values)
         except Exception:
             logger.warning(
@@ -31,7 +33,7 @@ class Settings(BaseSettings):
             env_vars[key] = str(value)
         client = Client()
         try:
-            client.create_secret(name="settings",values=env_vars)
+            client.create_secret(name="secrets",values=env_vars)
             logger.success(f"Export the settings to the .env file.")
         except Exception:
             logger.warning(f"Failed to export the settings to the .env file.")
