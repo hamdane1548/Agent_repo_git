@@ -11,6 +11,7 @@ class Settings(BaseSettings):
     DATABASE_MONGO_HOST : str
     MONGO_DATABASE : str
     MONGO_COLLECTION : str
+    MONGO_COLLECTION_JOB_DESCRIPTION : str
     ## github api key
     GITHUB_API_KEY : str
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
