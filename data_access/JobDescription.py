@@ -6,5 +6,5 @@ from .Profile_mongo import GitHubProfile
 class JobDescription(BaseModel):
     id: UUID = Field(default_factory=uuid.uuid4)
     jobDescription: str
-    tech : Optional[str]
-    profile : Optional[GitHubProfile]
+    tech : list[str]
+    profile : list[GitHubProfile]

@@ -5,18 +5,26 @@ from data_access import GitHubProfile
 from data_access.JobDescription import JobDescription
 
 @step
-def createJobDescription(job_description:str, profile:list[GitHubProfile],tech : list[str])->JobDescription:
+def createJobDescription(
+    job_description: str,
+    profile: list[GitHubProfile],
+    tech: list[str],
+) -> dict:
     logger.info("createJobDescription")
-    if (job_description == None):
-        logger.error("createJobDescription: job_description is None")
-        raise
+
+    if job_description is None:
+        raise ValueError("job_description is None")
+
     try:
-      job_description_save = JobDescription(
-          job_description=job_description,
-          profile=profile,
-          tech =tech
-      )
-      logger.success(f"CreateJobDescription success {job_description_save}")
-      return job_description_save
-    except Exception as ex:
-        logger.error("error when we wont to create the job description",ex)
+        logger.info(f"{job_description} , {tech} , {profile} ")
+        job_description_save = JobDescription(
+            jobDescription=job_description,
+            tech=tech,
+            profile=profile,
+        )
+
+        logger.success(f"JobDescription created successfully. {job_description_save}")
+        return job_description_save.model_dump()
+    except Exception:
+        logger.exception("Failed to create JobDescription")
+        raise
