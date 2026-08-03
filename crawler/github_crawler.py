@@ -20,4 +20,6 @@ class GithubCrawler:
 
     def get_profile(self, username: str):
         return self._client.get_user(username)
+    def get_repo(self,username: str):
+        return self._client.get_repo(username)
 githubClient = GithubCrawler()
