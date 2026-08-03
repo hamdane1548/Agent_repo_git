@@ -9,7 +9,7 @@ from Settings import Settings
 from data_access.TechStack import TechStack
 settings = Settings()
 @step
-def AiAgent_checkTech (tech:list[str],jobDescription: str)->list[str]:
+def AiAgent_checkTech(tech:list[str],jobDescription: str)->list[str]:
     prompt = ChatPromptTemplate.from_messages([
         (
             "system",
@@ -28,6 +28,7 @@ def AiAgent_checkTech (tech:list[str],jobDescription: str)->list[str]:
     """
         )
     ])
+    logger.success(f"mistral api key is {settings.MISTRAL_API_KEY}")
     model = ChatMistralAI(
         model = "mistral-medium-latest",
         api_key= settings.MISTRAL_API_KEY,
@@ -44,7 +45,8 @@ def AiAgent_checkTech (tech:list[str],jobDescription: str)->list[str]:
     result = agent.invoke({
         "message": message,
     })
-    return result
+    logger.info(f"the Result of the {result["structured_response"].tech_stac}")
+    return result["structured_response"].tech_stac
 
 
 
