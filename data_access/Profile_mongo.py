@@ -17,3 +17,4 @@ class GitHubProfile(BaseModel):
     repository_url: list[Repository] = None
     followers: int = 0
     following: int = 0
+
