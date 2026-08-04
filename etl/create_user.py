@@ -16,11 +16,12 @@ def createUser(user_name:str)->GitHubProfile:
 
         user  = crawler.crawl_profile(user_name)
         for users in user.get_repos():
+            languages = list(users.get_languages().keys())
             repositry = Repository(
                 repo_url = users.html_url,
                 name = users.name,
-                description = users.description,
-                langaage=list(users.get_languages().keys())
+                description = users.description or "",
+                langaage=languages
             )
             profiles_fin.append(repositry)
         githubuser = GitHubProfile(
