@@ -8,7 +8,7 @@ services:
     networks:
       - agent_network
     volumes:
-      - zenml_data_git_ai_agent:/zeml/.zenconfig
+      - zenml_data_git_ai_agent:/zenml/.config
   mongo_db_ai_agent:
     container_name: mongo_db_ai_agent
     image: mongo:latest
