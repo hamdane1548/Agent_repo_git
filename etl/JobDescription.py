@@ -11,7 +11,6 @@ def createJobDescription(
     tech: list[str],
 ) -> dict:
     logger.info("createJobDescription")
-
     if job_description is None:
         raise ValueError("job_description is None")
 
@@ -20,7 +19,7 @@ def createJobDescription(
         job_description_save = JobDescription(
             jobDescription=job_description,
             tech=tech,
-            profile=profile,
+            profile=profile
         )
 
         logger.success(f"JobDescription created successfully. {job_description_save}")
