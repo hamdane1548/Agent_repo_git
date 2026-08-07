@@ -8,6 +8,7 @@ from pydantic import TypeAdapter
 def SaveTheDataBase(data)->None:
     logger.info(f"Save the data to MongoDB {data}")
     db = connection[settings.MONGO_DATABASE]
+    logger.info(f"Save the data to MongoDB {data}")
     collection = db[settings.MONGO_COLLECTION_JOB_DESCRIPTION]
     data = TypeAdapter(dict).dump_python(data, mode="json")
     collection.insert_one(data)
