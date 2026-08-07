@@ -39,5 +39,6 @@ def github_profile_pipeline(
     job = createJobDescription(tech = TechStack,job_description=jobDescriptoin,profile = profiles_fin)
     #print(job)
     #Step 4
+    logger.info(job)
     """Save the Data inot the data Base"""
     SaveTheDataBase(job)

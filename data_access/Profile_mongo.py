@@ -6,6 +6,7 @@ from typing import List, Optional
 from pydantic.v1 import UUID1
 
 from data_access.Repository import Repository
+from data_access.ResumeRepo import ResumeRepo
 
 
 class GitHubProfile(BaseModel):
@@ -15,6 +16,7 @@ class GitHubProfile(BaseModel):
     bio: Optional[str] = None
     location: Optional[str] = None
     repository_url: list[Repository] = None
+    resume_url :List[ResumeRepo] = None
     followers: int = 0
     following: int = 0
 
