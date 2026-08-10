@@ -15,8 +15,8 @@ class GitHubProfile(BaseModel):
     name: Optional[str] = None
     bio: Optional[str] = None
     location: Optional[str] = None
-    repository_url: list[Repository] = None
-    resume_url :List[ResumeRepo] = None
+    repository_url: Optional[List[Repository]] = None
+    resume_url : Optional[List[ResumeRepo]] = None
     followers: int = 0
     following: int = 0
 
