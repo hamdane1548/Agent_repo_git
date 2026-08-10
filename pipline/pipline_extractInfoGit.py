@@ -1,12 +1,32 @@
-from zenml import pipeline
+from huggingface_hub.cli import jobs
+from zenml import pipeline , step
 from typing import List
 
-from data_access import GitHubProfile
+from data_access import GitHubProfile, JobDescription
 from etl import AiAgent_checkTech, createJobDescription, AiAgent_RepoSelect
 from etl.SaveDataBase import SaveTheDataBase
 from etl.create_user import createUser
 from loguru import logger
+from concurrent.futures import ThreadPoolExecutor
 from etl.crawler_link import ProfileGithub
+def invokeagent(profile):
+    user = createUser(profile)
+    return  user
+def procees_url_github(user,job , tech):
+    repouser = AiAgent_RepoSelect(tech=tech,job_description=job,profile=user)
+    return repouser
+@step
+def process_profiles(profiles: list) -> list:
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        results = list(
+            executor.map(invokeagent, profiles)
+        )
+    return results
+@step
+def process_reposiotory(profile:list,jobs,TechStack)->list:
+      with ThreadPoolExecutor(max_workers=3) as executor:
+          results = list(executor.map(procees_url_github,profile,jobs,TechStack))
+      return results
 @pipeline
 def github_profile_pipeline(
         profile : list[str],
@@ -23,16 +43,11 @@ def github_profile_pipeline(
     """First_step create Get the Profile information from the Github"""
     # Step  1
     profiles_fin: list[GitHubProfile] = []
-    for profiles in profile:
-        user = createUser(profiles)
-        github_with_repo=AiAgent_RepoSelect(jobDescriptoin=jobDescriptoin,tech=TechStack,profile=user)
-        profiles_fin.append(github_with_repo)
-    if (len(profiles) <= 0):
-        logger.warning("we can't fint any profiles form github")
-        raise
+    profiles_fin = process_profiles(profile)
+    profiles_fin = process_reposiotory(profiles_fin,jobDescriptoin,TechStack)
+    logger.debug("profiles_fin:{}",profiles_fin)
     #### get the repo
-    logger.info(len(profiles_fin))
-
+    #logger.info(len(profiles_fin))
     #Step 3
     """Creat the job descscption and the the profiles"""
 
