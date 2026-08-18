@@ -1,32 +1,15 @@
-from huggingface_hub.cli import jobs
 from zenml import pipeline , step
 from typing import List
 
 from data_access import GitHubProfile, JobDescription
 from etl import AiAgent_checkTech, createJobDescription, AiAgent_RepoSelect
+from etl.PrepareProfiles import process_profiles
 from etl.SaveDataBase import SaveTheDataBase
 from etl.create_user import createUser
 from loguru import logger
 from concurrent.futures import ThreadPoolExecutor
 from etl.crawler_link import ProfileGithub
-def invokeagent(profile):
-    user = createUser(profile)
-    return  user
-def procees_url_github(user,job , tech):
-    repouser = AiAgent_RepoSelect(tech=tech,job_description=job,profile=user)
-    return repouser
-@step
-def process_profiles(profiles: list) -> list:
-    with ThreadPoolExecutor(max_workers=3) as executor:
-        results = list(
-            executor.map(invokeagent, profiles)
-        )
-    return results
-@step
-def process_reposiotory(profile:list,jobs,TechStack)->list:
-      with ThreadPoolExecutor(max_workers=3) as executor:
-          results = list(executor.map(procees_url_github,profile,jobs,TechStack))
-      return results
+
 @pipeline
 def github_profile_pipeline(
         profile : list[str],
@@ -42,9 +25,7 @@ def github_profile_pipeline(
     TechStack = AiAgent_checkTech(jobDescription=jobDescriptoin, tech=tech)
     """First_step create Get the Profile information from the Github"""
     # Step  1
-    profiles_fin: list[GitHubProfile] = []
-    profiles_fin = process_profiles(profile)
-    profiles_fin = process_reposiotory(profiles_fin,jobDescriptoin,TechStack)
+    profiles_fin = process_profiles(profile,jobDescriptoin,TechStack)
     logger.debug("profiles_fin:{}",profiles_fin)
     #### get the repo
     #logger.info(len(profiles_fin))
