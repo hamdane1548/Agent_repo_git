@@ -1,3 +1,22 @@
+<div align="center">
+
+# 🤖 AI Git Agent
+
+### Intelligent GitHub Repository Analysis & AI-Powered Developer Agents
+
+**Analyze · Understand · Reason · Automate**
+
+An agentic AI system designed to analyze GitHub repositories,
+understand project requirements, and orchestrate specialized AI agents
+to assist developers.
+
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![LangChain](https://img.shields.io/badge/LangChain-Agents-1C3C3C?logo=langchain)](https://www.langchain.com/)
+[![Kafka](https://img.shields.io/badge/Apache%20Kafka-Event%20Driven-231F20?logo=apachekafka&logoColor=white)](https://kafka.apache.org/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+[![GitHub](https://img.shields.io/badge/GitHub-Integration-181717?logo=github&logoColor=white)](https://github.com/)
+
+</div>
 <img width="1957" height="994" alt="image" src="https://github.com/user-attachments/assets/4e66bc2b-85ea-4f16-819e-6ded2582513c" />
 # 🤖 AI Git Agent
 
