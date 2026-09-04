@@ -26,7 +26,7 @@ def send_location_updates(profile: list , job_descriptoin: str,techStack):
                 "techStack":techStack
             }
     logger.info(f"the data is send {data}")
-    producer.send('data', data)
+    producer.send('driver-location', value=data)
     producer.flush()
     return request_id
 

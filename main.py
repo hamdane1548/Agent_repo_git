@@ -14,7 +14,7 @@ def main():
     #settings.export()
     """Test to load the conf from setting"""
     github_profile_pipeline(
-        profile=["hamdane1548", "Ayoub-glitsh", "AnouarMohamed"],
+        profile=["hamdane1548"],
         jobDescriptoin="""
            We are looking for a Backend Engineer to develop and maintain scalable web applications. The ideal candidate has experience building RESTful APIs with Spring Boot and Spring Security, designing relational databases with PostgreSQL or MySQL, and developing modern user interfaces using React.
 
