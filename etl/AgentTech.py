@@ -1,11 +1,13 @@
 from zenml import get_step_context, step
 from loguru import logger
+from Services import invoke_with_retry
 from crawler.profile_crawler import crawler
 from data_access import GitHubProfile
 from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain.agents import create_agent
 from Settings import Settings
+from langchain_ollama import ChatOllama
 from data_access.TechStack import TechStack
 settings = Settings()
 @step
@@ -28,25 +30,25 @@ def AiAgent_checkTech(tech:list[str],jobDescription: str)->list[str]:
     """
         )
     ])
-    logger.success(f"mistral api key is {settings.MISTRAL_API_KEY}")
-    model = ChatMistralAI(
-        model = "mistral-medium-latest",
-        api_key= settings.MISTRAL_API_KEY,
-        temperature=1,
+    #logger.success(f"mistral api key is {settings.MISTRAL_API_KEY}")
+    model = ChatOllama(
+    model="qwen2.5:3b",
+    temperature=0.1,
+    max_retries=5,
     )
-    agent =  create_agent(
-        model=model,
-        response_format=TechStack,
-    )
+    structured_model = model.with_structured_output(TechStack)
     message = prompt.invoke({
-        "tech": tech,
-        "job_description": jobDescription,
+    "tech": tech,
+    "job_description": jobDescription,
     })
-    result = agent.invoke({
-        "message": message,
-    })
-    logger.info(f"the Result of the {result["structured_response"].tech_stac}")
-    return result["structured_response"].tech_stac
+    
+    result = invoke_with_retry(
+        structured_model,
+        message
+    )
+    logger.info(f"the response from the llm is the ",result)
+    #logger.info(f"the Result of the {result["structured_response"].tech_stac}")
+    return result.tech_stac
 
 
 
