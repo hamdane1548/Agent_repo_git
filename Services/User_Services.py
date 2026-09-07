@@ -14,7 +14,7 @@ class GitHubPrfile():
             followers=user.followers,
             following=user.following,
         )
-        cls.collection.insert_one(githubuser)
-crud_db = GitHubProfile()
+        cls.collection.insert_one(githubuser.model_dump())
+
 
 
