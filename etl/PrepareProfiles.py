@@ -1,3 +1,5 @@
+import uuid
+
 from zenml import step
 
 from data_access import GitHubProfile
@@ -12,14 +14,16 @@ def process_url_github(user, job,tech):
     crawler_github_user = AiAgent_RepoSelect(tech,job,user)
     return crawler_github_user
 @step
-def process_profiles(profile: list, job_descriptoin: str, techStack) -> list[GitHubProfile]:
-
+def process_profiles(profile: list, job_descriptoin: str, techStack,request_id) -> list[GitHubProfile]:
+    
     logger.info("========== PROCESS_PROFILES START ==========")
     logger.info(f"profiles",profile)
-    request_id = send_location_updates(
+    logger.info(f"request_id{request_id}")
+    send_location_updates(
         profile=profile,
         job_descriptoin=job_descriptoin,
-        techStack=techStack
+        techStack=techStack,
+        request_id=request_id
     )
 
     logger.info(f"========== REQUEST ID: {request_id} ==========")
