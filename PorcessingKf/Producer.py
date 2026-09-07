@@ -12,12 +12,12 @@ def create_producer():
     """Create a connection to the Kafka broker"""
     producer = KafkaProducer(
         bootstrap_servers=['localhost:9092'],
+        
         value_serializer=lambda v: json.dumps(v).encode('utf-8')
     )
     return producer
 
-def send_location_updates(profile: list , job_descriptoin: str,techStack):
-    request_id = str(uuid.uuid4())
+def send_location_updates(profile: list , job_descriptoin: str,techStack,request_id):
     producer = create_producer()
     data = {
                 'request_id':request_id,
@@ -28,7 +28,6 @@ def send_location_updates(profile: list , job_descriptoin: str,techStack):
     logger.info(f"the data is send {data}")
     producer.send('driver-location', value=data)
     producer.flush()
-    return request_id
 
 # Start sending updates for driver_id = 101
 
