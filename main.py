@@ -12,10 +12,14 @@ def main():
     print("Hello from ai-git-agent!")
     #settings = Settings()
     #settings.export()
+    request_id  = str(uuid.uuid4())
+
     """Test to load the conf from setting"""
+    logger.info(f"MAIN REQUEST ID = {request_id}")
     github_profile_pipeline(
         profile=["hamdane1548"],
-        jobDescriptoin="""
+        request_id = request_id,
+        jobDescriptoin=""",
            We are looking for a Backend Engineer to develop and maintain scalable web applications. The ideal candidate has experience building RESTful APIs with Spring Boot and Spring Security, designing relational databases with PostgreSQL or MySQL, and developing modern user interfaces using React.
 
     You will be responsible for implementing authentication and authorization, integrating third-party services, and ensuring high application performance and security. Experience with Docker, Git, Redis, and CI/CD pipelines is highly valued.
@@ -24,7 +28,7 @@ def main():
 
     Required Skills: Spring Boot, Spring Security, Java, React, TypeScript, REST APIs, PostgreSQL, Git, Docker.
            """,
-        tech=["spring boot", "spring security", "java", "React", "TypeScript"],
+        tech=["spring boot", "spring security", "java", "React", "TypeScript","llm"],
     )
 if __name__ == "__main__":
     main()
