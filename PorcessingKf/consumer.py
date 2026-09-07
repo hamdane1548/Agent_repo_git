@@ -14,9 +14,8 @@ def HandleProfiles():
     consumer = KafkaConsumer(
         'driver-location',
         bootstrap_servers=['localhost:9092'],
-        auto_offset_reset='latest',
-        enable_auto_commit=True,
-        group_id='profile-processing-group',
+auto_offset_reset='latest',
+        group_id='test_thata_v2',
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
     )
 

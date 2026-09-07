@@ -8,9 +8,8 @@ def wait_for_Response(request_id):
     consumer = KafkaConsumer(
         'response-topic',
         bootstrap_servers=['localhost:9092'],
-        auto_offset_reset='earliest',
-        enable_auto_commit=True,
-        group_id=f'response-group-{request_id}',
+        auto_offset_reset='latest',
+        group_id='test_thata_v2',
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
     )
 
