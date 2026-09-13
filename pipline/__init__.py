@@ -1,1 +1,2 @@
 from .pipline_extractInfoGit import github_profile_pipeline
+from .Rag_EmbeddingPipeling import EmbeddingsRag 
