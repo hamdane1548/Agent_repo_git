@@ -1,9 +1,9 @@
 from data_access import GitHubProfile
-from infrastructure.base.Mongo import connection
+from infrastructure.base.Mongo import connectiondbmongo
 from Settings import Settings
 settings = Settings()
 class GitHubPrfile():
-    db = connection[settings.MONGO_DATABASE]
+    db = connectiondbmongo[settings.MONGO_DATABASE]
     collection = db[settings.MONGO_COLLECTION]
     @classmethod
     def create_user(cls, user):
