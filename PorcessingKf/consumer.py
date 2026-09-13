@@ -15,6 +15,12 @@ def HandleProfiles():
         'driver-location',
         bootstrap_servers=['localhost:9092'],
 auto_offset_reset='latest',
+
+    max_poll_interval_ms=1800000,  
+    session_timeout_ms=30000,
+    heartbeat_interval_ms=10000,
+
+    enable_auto_commit=False,
         group_id='test_thata_v2',
         value_deserializer=lambda x: json.loads(x.decode('utf-8'))
     )
