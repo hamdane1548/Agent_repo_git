@@ -1,2 +1,2 @@
-from .Mongo import connection
-__all__ = ['connection']
+from .Mongo import connectiondbmongo
+__all__ = ['connectiondbmongo']

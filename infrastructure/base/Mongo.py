@@ -16,4 +16,4 @@ class Mongo:
               logger.error(f"Couldn't connect to the database: {e!s}")
               raise
       return cls._instance
-connection  = Mongo()
+connectiondbmongo  = Mongo()

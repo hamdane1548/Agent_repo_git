@@ -5,9 +5,7 @@ from pydantic import UUID1
 from Settings import Settings
 from loguru import logger
 from crawler.profile_crawler import crawler
-from infrastructure.base.Mongo import connection
-from pipline import github_profile_pipeline
-
+from pipline.pipline_extractInfoGit import github_profile_pipeline
 def main():
     print("Hello from ai-git-agent!")
     #settings = Settings()
@@ -16,6 +14,8 @@ def main():
 
     """Test to load the conf from setting"""
     logger.info(f"MAIN REQUEST ID = {request_id}")
+
+  
     github_profile_pipeline(
         profile=["hamdane1548"],
         request_id = request_id,
@@ -27,7 +27,7 @@ def main():
     As part of our AI initiatives, you will also collaborate on projects involving Python, LangChain, Large Language Models (LLMs), RAG (Retrieval-Augmented Generation), vector databases, and AI agents to build intelligent features into our products.
 
     Required Skills: Spring Boot, Spring Security, Java, React, TypeScript, REST APIs, PostgreSQL, Git, Docker.
-           """,
+          """,
         tech=["spring boot", "spring security", "java", "React", "TypeScript","llm"],
     )
 if __name__ == "__main__":

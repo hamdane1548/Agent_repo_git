@@ -10,6 +10,7 @@ class Settings(BaseSettings):
     """Data Werhouse Mongo Db"""
     DATABASE_MONGO_HOST : str
     MONGO_DATABASE : str
+    GEMINIG_API_KEY : str
     MONGO_COLLECTION : str
     MONGO_COLLECTION_JOB_DESCRIPTION : str
     ## github api key
