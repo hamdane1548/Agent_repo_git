@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   zenml_server:
     container_name: zenMl_server
@@ -9,12 +8,16 @@ services:
       - agent_network
     volumes:
       - zenml_data_git_ai_agent:/zenml/.config
-  qdrant:
-    image: qdrant/qdrant:latest
+  chroma:
+    image: ghcr.io/chroma-core/chroma:latest
+    container_name: chromadb
     ports:
-      - "6333:6333"
+      - "8000:8000"
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
     volumes:
-      - qdrant_data:/qdrant/storage
+      - chroma_data:/chroma/chroma
   mongo_db_ai_agent:
     container_name: mongo_db_ai_agent
     image: mongo:latest
@@ -75,6 +78,7 @@ volumes:
   mongo_data_ai_agent:
   zenml_data_git_ai_agent:
   qdrant_data:
+  chroma_data:
 networks:
   agent_network:
     driver: bridge
